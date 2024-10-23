@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear contenedor{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Asegurar que html y body ocupen toda la ventana */
+    html,
+    body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Navbar ocupa solo su contenido */
+    nav {
+        flex: 0 0 auto;
+    }
+
+    /* Contenedor ocupa el resto del espacio disponible */
+    #contenedor {
+        flex: 1 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, white, #a0e9fd, #38bdf8, #1f7aa5);
+    }
+
+    #contenedor_form {
+        background-color: white;
+        width: 30rem;
+        height: max-content;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        border-radius: 1rem;
+        margin-top: 3rem;
+
+    }
+
+    #contenedor_titulo {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
+</style>
+
+<div id="contenedor">
+
+
+
+    <div id="contenedor_form">
+
+        <form class="max-w-sm mx-auto">
+            <div id="contenedor_titulo" class="mb-5">
+                <h2>Crear contenedor</h2>
+            </div>
+
+            <div class="mb-5">
+                <label for="nombre_contenedor"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre para el
+                    contenedor</label>
+                <input type="text" id="nombre_contenedor"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    placeholder="" required />
+            </div>
+
+            <div class="mb-5">
+                <label for="nombre_imagen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre
+                    de la imagen de docker a utilizar</label>
+                <input type="text" id="nombre_imagen"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    placeholder="" required />
+            </div>
+
+
+            <div class="mb-5">
+                <label for="segundo_plano" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    ¿Desea ejecutar el contenedor en segundo plano?
+                </label>
+                <select id="segundo_plano"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    required>
+                    <option value="" disabled selected>Selecciona una opción...</option>
+                    <option value="si">Sí</option>
+                    <option value="no">No</option>
+
+                </select>
+            </div>
+
+
+
+            <div class="mb-5">
+                <label for="seleccionar_puertos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    ¿Desea especificar los puertos a utilizar?
+                </label>
+                <select id="seleccionar_puertos"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    required>
+                    <option value="" disabled selected>Selecciona una opción...</option>
+                    <option value="si">Sí</option>
+                    <option value="no">No</option>
+
+                </select>
+            </div>
+
+
+            <div id="campos_puertos" class="hidden">
+
+                <div class="mb-5">
+                    <label for="puerto_host" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Puerto
+                        del host</label>
+                    <input type="text" id="puerto_host"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        placeholder="" required />
+                </div>
+
+
+                <div class="mb-5">
+                    <label for="puerto_contenedor"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Puerto del
+                        contenedor</label>
+                    <input type="text" id="puerto_contenedor"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        placeholder="" required />
+                </div>
+
+            </div>
+
+            <!--
+            <button type="submit" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Aceptar</button>
+            <button type="button" class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Aceptar</button>
+            <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Aceptar</button>
+            <button type="button" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Green to Blue</button>
+            -->
+            <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Generar comando</button>
+
+
+
+            
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+    const seleccionarPuertos = document.getElementById('seleccionar_puertos');
+    const camposPuertos = document.getElementById('campos_puertos');
+
+    seleccionarPuertos.addEventListener('change', function () {
+        if (this.value === 'si') {
+            camposPuertos.classList.remove('hidden'); // Muestra los campos
+        } else {
+            camposPuertos.classList.add('hidden'); // Oculta los campos
+        }
+    });
+</script>
+
+
+{% endblock %}
