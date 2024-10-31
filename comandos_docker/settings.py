@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'comandos_docker.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'comandos_db',  
+        'USER': 'jeti',           
+        'PASSWORD': 'Dock3rc0mp0s5', 
+        'HOST': 'localhost',         
+        'PORT': '5432',   
     }
 }
 
