@@ -52,15 +52,23 @@
         <!-- Título -->
         <h3 class="mb-4">Iniciar Sesión</h3>
 
+         <!-- Mostrar mensajes de error -->
+         {% if messages %}
+         {% for message in messages %}
+             <div class="alert alert-danger">{{ message }}</div>
+         {% endfor %}
+        {% endif %}
+
         <!-- Formulario -->
-        <form>
+        <form method="post">
+            {% csrf_token %}
             <div class="form-group">
-                <input type="email" class="form-control" placeholder="Correo electrónico" required>
+                <input type="email" name="user_email" class="form-control" placeholder="Correo electrónico" required>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Contraseña" required>
+                <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
         </form>
 
         <!-- Enlace de registro o recuperación de contraseña -->
@@ -69,6 +77,14 @@
         </p>
     </div>
 
+    <script>
+        setTimeout(function() {
+            const messageContainer = document.getElementById('message-container');
+            if (messageContainer) {
+                messageContainer.style.display = 'none';
+            }
+        }, 3000); // 3000 ms = 3 segundos
+    </script>
     <!-- Bootstrap JS y dependencias -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>

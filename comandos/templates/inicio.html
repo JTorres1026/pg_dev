@@ -9,7 +9,32 @@
         font-size: 5rem;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     }
+
+    #contenido p{
+
+        font-size: 2rem;
+        font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    #boton_contenedor {
+        margin-top: 4rem;
+    }
+    #contenido{
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
-    <h1>Bienvenido a Dockcoms</h1>
-    <p>Genera comandos Docker fácilmente con nuestra plataforma.</p>
+
+    <div id="contenido">
+        <h1>Bienvenido a Dockcoms</h1>
+        <p>¡Genera comandos rápidamente para crear tus contenedores!</p>
+
+        <a href="{% url 'crear_contenedor' %}" id="boton_contenedor" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Crear contenedores ahora</a>
+
+    </div>
+    
 {% endblock %}
