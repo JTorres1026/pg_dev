@@ -134,6 +134,24 @@ def acciones_contenedor_view(request):
             sub= subcomando.subcomando
 
             comando= f"{nombrec} {sub} {nombre_contenedor}"
+
+
+        if accion=='interactuar':
+            #obtener subcomando
+            subcomando = Subcomando.objects.get(subcomando='exec')
+            sub= subcomando.subcomando
+
+            opcion = Opcion.objects.get(descripcion='interactivo')
+
+            comando= f"{nombrec} {sub} {opcion.opcion} {nombre_contenedor} bash"
+
+        
+        if accion=='eliminar':
+            #obtener subcomando
+            subcomando = Subcomando.objects.get(subcomando='rm')
+            sub= subcomando.subcomando
+
+            comando= f"{nombrec} {sub} {nombre_contenedor}"
         
         return render(request, 'contenedor/acciones_contenedor.html', {'comando': comando })
     
