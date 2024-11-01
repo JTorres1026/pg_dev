@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
+from .models import Opcion, Comando, Historial,Subcomando
 
 
 #Controlar el inicio de sesión
@@ -46,12 +47,94 @@ def crear_contenedor_view(request):
         tiene_puerto = request.POST.get('tiene_puerto')
         puerto_host = request.POST.get('puerto_host')
         puerto_contenedor = request.POST.get('puerto_contenedor')
+
+        #Creación del comando
+
+        #obtener comando
+        icomando = Comando.objects.get(descripcion='basico')
+        nombrec = icomando.comando
+
+        #obtener subcomando
+        subcomando = Subcomando.objects.get(subcomando='run')
+        sub= subcomando.subcomando
+
+        #obtener la opcion de nombre 
+        fnombre= Opcion.objects.get(descripcion='nombre')
+        opcion_nombre= fnombre.opcion
+        
+
+        if modo_ejecucion=='si':
+            #obtener la opción de segundo plano
+            segundo_plano = Opcion.objects.get(descripcion='segundoplano')
+            opcion_segundo_plano= segundo_plano.opcion
+
+            comando= f"{nombrec} {sub} {opcion_nombre} {nombre_contenedor} {opcion_segundo_plano} {nombre_imagen}"
+
+            if tiene_puerto=='si':
                 
+                opcion_puerto= Opcion.objects.get(descripcion='puerto')
+
+                comando= f"{nombrec} {sub} {opcion_nombre} {nombre_contenedor} {opcion_segundo_plano} {opcion_puerto.opcion} {puerto_host}:{puerto_contenedor} {nombre_imagen}"
+
+
+        else:
+
+            if tiene_puerto=='si':
+                
+                opcion_puerto= Opcion.objects.get(descripcion='puerto')
+
+                comando= f"{nombrec} {sub} {opcion_nombre} {nombre_contenedor} {opcion_puerto.opcion} {puerto_host}:{puerto_contenedor} {nombre_imagen}"
+            
+            else:
+                comando= f"{nombrec} {sub} {opcion_nombre} {nombre_contenedor} {nombre_imagen}"
+
+
         print(nombre_contenedor,nombre_imagen,modo_ejecucion, tiene_puerto,puerto_host,puerto_contenedor)        
-        # procesar los datos o guardarlos en la base de datos
-        comando = 'El nombre de tu contenedor sera '+nombre_contenedor
+   
 
         
         return render(request, 'contenedor/crear_contenedor.html', {'comando': comando })
     
     return render(request, 'contenedor/crear_contenedor.html')
+
+
+
+@login_required
+def acciones_contenedor_view(request):
+    if request.method == 'POST':
+        nombre_contenedor = request.POST.get('nombre_contenedor')
+        accion = request.POST.get('accion')
+        
+
+        #Creación del comando
+
+        
+
+        #obtener comando
+        icomando = Comando.objects.get(descripcion='basico')
+        nombrec = icomando.comando
+
+        if accion=='iniciar':
+            #obtener subcomando
+            subcomando = Subcomando.objects.get(subcomando='start')
+            sub= subcomando.subcomando
+
+            comando= f"{nombrec} {sub} {nombre_contenedor}"
+
+        if accion=='detener':
+            #obtener subcomando
+            subcomando = Subcomando.objects.get(subcomando='stop')
+            sub= subcomando.subcomando
+
+            comando= f"{nombrec} {sub} {nombre_contenedor}"    
+        
+        if accion=='reiniciar':
+            #obtener subcomando
+            subcomando = Subcomando.objects.get(subcomando='restart')
+            sub= subcomando.subcomando
+
+            comando= f"{nombrec} {sub} {nombre_contenedor}"
+        
+        return render(request, 'contenedor/acciones_contenedor.html', {'comando': comando })
+    
+    return render(request, 'contenedor/acciones_contenedor.html')

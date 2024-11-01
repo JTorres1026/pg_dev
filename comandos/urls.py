@@ -8,5 +8,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'), #Cerrar sesión
     path('inicio/', views.inicio_view, name='inicio'),  # Ruta para la página principal
     path('crear-contenedor/', views.crear_contenedor_view, name='crear_contenedor'),
+    path('acciones-contenedor/', views.acciones_contenedor_view, name='acciones_contenedor'),
   
 ]
