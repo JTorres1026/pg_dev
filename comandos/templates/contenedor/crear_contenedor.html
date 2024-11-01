@@ -53,13 +53,21 @@
     }
 </style>
 
+
+
+
 <div id="contenedor">
 
+    <!-- Muestra el comando generado si existe -->
 
+
+    <!--Fin modal-->
 
     <div id="contenedor_form">
 
-        <form class="max-w-sm mx-auto">
+        <form class="max-w-sm mx-auto" method="post">
+            {% csrf_token %}
+
             <div id="contenedor_titulo" class="mb-5">
                 <h2>Crear contenedor</h2>
             </div>
@@ -68,7 +76,7 @@
                 <label for="nombre_contenedor"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre para el
                     contenedor</label>
-                <input type="text" id="nombre_contenedor"
+                <input type="text" id="nombre_contenedor" name="nombre_contenedor"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     placeholder="" required />
             </div>
@@ -76,7 +84,7 @@
             <div class="mb-5">
                 <label for="nombre_imagen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre
                     de la imagen de docker a utilizar</label>
-                <input type="text" id="nombre_imagen"
+                <input type="text" id="nombre_imagen" name="nombre_imagen"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     placeholder="" required />
             </div>
@@ -86,7 +94,7 @@
                 <label for="segundo_plano" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     ¿Desea ejecutar el contenedor en segundo plano?
                 </label>
-                <select id="segundo_plano"
+                <select id="segundo_plano" name="modo_ejecucion"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required>
                     <option value="" disabled selected>Selecciona una opción...</option>
@@ -102,7 +110,7 @@
                 <label for="seleccionar_puertos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     ¿Desea especificar los puertos a utilizar?
                 </label>
-                <select id="seleccionar_puertos"
+                <select id="seleccionar_puertos" name="tiene_puerto"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required>
                     <option value="" disabled selected>Selecciona una opción...</option>
@@ -118,9 +126,9 @@
                 <div class="mb-5">
                     <label for="puerto_host" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Puerto
                         del host</label>
-                    <input type="text" id="puerto_host"
+                    <input type="text" id="puerto_host" name="puerto_host"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                        placeholder="" required />
+                        placeholder="" />
                 </div>
 
 
@@ -128,27 +136,81 @@
                     <label for="puerto_contenedor"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Puerto del
                         contenedor</label>
-                    <input type="text" id="puerto_contenedor"
+                    <input type="text" id="puerto_contenedor" name="puerto_contenedor"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                        placeholder="" required />
+                        placeholder="" />
                 </div>
 
             </div>
 
-            <!--
-            <button type="submit" class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Aceptar</button>
-            <button type="button" class="text-white bg-gradient-to-r from-teal-400 via-teal-500 to-teal-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-teal-300 dark:focus:ring-teal-800 shadow-lg shadow-teal-500/50 dark:shadow-lg dark:shadow-teal-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Aceptar</button>
-            <button type="button" class="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 shadow-lg shadow-blue-500/50 dark:shadow-lg dark:shadow-blue-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 ">Aceptar</button>
-            <button type="button" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Green to Blue</button>
-            -->
-            <button type="button" class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Generar comando</button>
+
+            <button type="submit"
+                class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Generar
+                comando</button>
 
 
 
-            
-        </form>
+        
 
+    
+
+    {% if comando %}
+
+
+
+    <!-- Modal toggle -->
+    <button data-modal-target="static-modal" data-modal-toggle="static-modal"
+        class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button">
+        ¡El comando está listo! Encuéntralo aquí
+    </button>
+
+    <!-- Main modal -->
+    <div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        Comando generado
+                    </h3>
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="static-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Cerrar</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5 space-y-4">
+                    <p id="comando_generado_texto" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                       {{comando}}
+                    </p>
+                    
+                </div>
+                <!-- Modal footer -->
+                <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                    <button onclick="copiarComando()" data-modal-hide="static-modal" type="button"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Copiar comando</button>
+                    <button data-modal-hide="static-modal" type="button"
+                        class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cerrar</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+    {% endif %}
+</form>
+
+</div>
 
 </div>
 
@@ -167,6 +229,24 @@
         }
     });
 </script>
+
+
+<script>
+    function copiarComando() {
+        // Seleccionar el elemento del texto
+        const textoComando = document.getElementById('comando_generado_texto').textContent.trim();
+        
+        // Usar la API Clipboard para copiar el texto al portapapeles
+        navigator.clipboard.writeText(textoComando).then(function() {
+            // Opcional: muestra una alerta o cambia el texto del botón para confirmar la copia
+            alert("Comando copiado al portapapeles!");
+        }).catch(function(error) {
+            console.error("Error al copiar el texto al portapapeles: ", error);
+        });
+    }
+</script>
+
+
 
 
 {% endblock %}
