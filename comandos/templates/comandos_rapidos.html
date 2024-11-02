@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear contenedor{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Asegurar que html y body ocupen toda la ventana */
+    html,
+    body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Navbar ocupa solo su contenido */
+    nav {
+        flex: 0 0 auto;
+    }
+
+    /* Contenedor ocupa el resto del espacio disponible */
+    #contenedor {
+        flex: 1 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, white, #a0e9fd, #38bdf8, #1f7aa5);
+    }
+
+    #contenedor_form {
+        background-color: white;
+        width: 30rem;
+        height: max-content;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        border-radius: 1rem;
+        margin-top: 3rem;
+
+    }
+
+    #contenedor_titulo {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
+</style>
+
+
+
+
+<div id="contenedor">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Comando</th>
+                    <th scope="col" class="px-6 py-3">Descripcion</th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only"> </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4" id="comando_1">docker ps</td>
+                    <td class="px-6 py-4">Listar contenedores en ejecución</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" onclick="copiarComando('comando_1')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Copiar</a>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4" id="comando_2">docker ps -a</td>
+                    <td class="px-6 py-4">Listar todos los contenedores creados</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" onclick="copiarComando('comando_2')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Copiar</a>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4" id="comando_3">docker images</td>
+                    <td class="px-6 py-4">Listar imágenes</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" onclick="copiarComando('comando_3')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Copiar</a>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4" id="comando_4">docker login</td>
+                    <td class="px-6 py-4">Iniciar sesión en un registro de Docker</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" onclick="copiarComando('comando_4')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Copiar</a>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4" id="comando_5">docker logout</td>
+                    <td class="px-6 py-4">Cerrar sesión en un registro de Docker</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" onclick="copiarComando('comando_5')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Copiar</a>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4" id="comando_6">docker version</td>
+                    <td class="px-6 py-4">Mostrar la versión de la instalación local de Docker</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" onclick="copiarComando('comando_6')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Copiar</a>
+                    </td>
+                </tr>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                    <td class="px-6 py-4" id="comando_7">docker network ls</td>
+                    <td class="px-6 py-4">Listar redes disponibles</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" onclick="copiarComando('comando_7')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Copiar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function copiarComando(comandoId) {
+        // Obtén el texto del comando a copiar
+        const textoComando = document.getElementById(comandoId).textContent.trim();
+
+        // Usa la API Clipboard para copiar el texto al portapapeles
+        navigator.clipboard.writeText(textoComando).then(function () {
+            alert("Comando copiado al portapapeles!");
+        }).catch(function (error) {
+            console.error("Error al copiar el texto al portapapeles: ", error);
+        });
+    }
+</script>
+
+
+
+
+
+{% endblock %}

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Form</title>
+    <title>Crear cuenta</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -50,7 +50,7 @@
         <img src="https://ultahost.com/blog/wp-content/uploads/2024/03/15-TSW-What-is-Docker-and-What-Benefits-Does-It-Offer.png" alt="Login Image" class="login-image">
 
         <!-- Título -->
-        <h3 class="mb-4">Iniciar Sesión</h3>
+        <h3 class="mb-4">Crear cuenta</h3>
 
          <!-- Mostrar mensajes de error -->
          {% if messages %}
@@ -63,18 +63,23 @@
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <input type="email" name="user_email" class="form-control" placeholder="Correo electrónico" required>
+                {{ form.username }}
             </div>
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+                {{ form.email }}
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+
+            <div class="form-group">
+                {{ form.password1 }}
+            </div>
+
+            <div class="form-group">
+                {{ form.password2 }}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
         </form>
 
-        <!-- Enlace de registro o recuperación de contraseña -->
-        <p class="mt-3">
-            <a href="{% url 'registro' %}">¿Aún no tienes una cuenta? Regístrate ahora</a> 
-        </p>
+       
     </div>
 
     <script>

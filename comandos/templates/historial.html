@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}Historial de Comandos{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Asegurar que html y body ocupen toda la ventana */
+    html,
+    body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Navbar ocupa solo su contenido */
+    nav {
+        flex: 0 0 auto;
+    }
+
+    /* Contenedor ocupa el resto del espacio disponible */
+    #contenedor {
+        flex: 1 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, white, #a0e9fd, #38bdf8, #1f7aa5);
+    }
+
+    #contenedor_form {
+        background-color: white;
+        width: 30rem;
+        height: max-content;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        border-radius: 1rem;
+        margin-top: 3rem;
+
+    }
+
+    #contenedor_titulo {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
+</style>
+
+<div id="contenedor">
+
+    <!-- Filtro de Fecha -->
+    <form id="filter-form" onsubmit="return false;">
+        <label for="filter-date" class="text-gray-700">Filtrar por fecha:</label>
+        <input type="date" id="filter-date" name="fecha" class="border border-gray-300 rounded p-1" onchange="filtrarPorFecha()">
+    </form>
+
+    <!-- Tabla de Historial -->
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">ID</th>
+                    <th scope="col" class="px-6 py-3">Comando</th>
+                    <th scope="col" class="px-6 py-3">Fecha</th>
+                    <th scope="col" class="px-6 py-3"><span class="sr-only">Copiar</span></th>
+                </tr>
+            </thead>
+            <tbody id="historial-body">
+                {% for item in historial %}
+                <tr class="historial-row bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" data-fecha="{{ item.fecha }}">
+                    <td class="px-6 py-4">{{ item.id }}</td>
+                    <td class="px-6 py-4"><span id="comando-{{ item.id }}">{{ item.comando }}</span></td>
+                    <td class="px-6 py-4">{{ item.fecha }}</td>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" onclick="copiarComando('{{ item.comando }}')" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Copiar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center py-4">No hay historial disponible.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    function copiarComando(comando) {
+        // Usar la API Clipboard para copiar el texto al portapapeles
+        navigator.clipboard.writeText(comando.trim()).then(function () {
+            alert("Comando copiado al portapapeles!");
+        }).catch(function (error) {
+            console.error("Error al copiar el texto al portapapeles: ", error);
+        });
+    }
+
+    function filtrarPorFecha() {
+        const fechaSeleccionada = document.getElementById('filter-date').value;
+        const fechaFiltro = fechaSeleccionada ? new Date(fechaSeleccionada).toISOString().slice(0, 10) : '';
+
+        const filasHistorial = document.querySelectorAll('.historial-row');
+        filasHistorial.forEach(fila => {
+            const fechaFila = fila.getAttribute('data-fecha');
+            fila.style.display = (fechaFiltro === '' || fechaFila === fechaFiltro) ? '' : 'none';
+        });
+    }
+</script>
+
+{% endblock %}

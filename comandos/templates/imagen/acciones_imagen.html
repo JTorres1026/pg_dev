@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}Crear contenedor{% endblock %}
+
+{% block content %}
+
+<style>
+    /* Asegurar que html y body ocupen toda la ventana */
+    html,
+    body {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Navbar ocupa solo su contenido */
+    nav {
+        flex: 0 0 auto;
+    }
+
+    /* Contenedor ocupa el resto del espacio disponible */
+    #contenedor {
+        flex: 1 0 auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(to bottom, white, #a0e9fd, #38bdf8, #1f7aa5);
+    }
+
+    #contenedor_form {
+        background-color: white;
+        width: 30rem;
+        height: max-content;
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+        border-radius: 1rem;
+        margin-top: 3rem;
+
+    }
+
+    #contenedor_titulo {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    h2 {
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
+</style>
+
+
+
+
+<div id="contenedor">
+
+    <!-- Muestra el comando generado si existe -->
+
+
+    <!--Fin modal-->
+
+    <div id="contenedor_form">
+
+        <form class="max-w-sm mx-auto" method="post">
+            {% csrf_token %}
+
+            <div id="contenedor_titulo" class="mb-5">
+                <h2>Acciones de la imagen</h2>
+            </div>
+
+            <div class="mb-5">
+                <label for="nombre_contenedor"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la imagen</label>
+                <input type="text" id="nombre_contenedor" name="nombre_imagen"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    placeholder="" required />
+            </div>
+
+
+          
+            <div class="mb-5">
+                <label for="segundo_plano" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    ¿Que versión de la imagen necesita?
+                </label>
+                <select id="seleccionar_version" name="version_imagen"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    required>
+                    <option value="" disabled selected>Selecciona una opción...</option>
+                    <option value="ultima">Última versión</option>
+                    <option value="especifica">Versión específica</option>
+
+
+                </select>
+            </div>
+
+
+
+            <div id="campo_version" class="hidden">
+                <div class="mb-5">
+                    <label for="nombre_contenedor"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etiqueta de imagen</label>
+                    <input type="text" id="nombre_contenedor" name="etiqueta_imagen"
+                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                        placeholder=""  />
+                </div>
+            </div>
+
+
+            <div class="mb-5">
+                <label for="segundo_plano" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    ¿Qué acción desea realizar con la imagen?
+                </label>
+                <select id="seleccionar_ruta" name="accion_imagen"
+                    class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                    required>
+                    <option value="" disabled selected>Selecciona una opción...</option>
+                    <option value="eliminar">Eliminar</option>
+                    <option value="descargar">Descargar</option>
+                    <option value="subir">Subir</option>
+
+
+                </select>
+            </div>
+
+
+
+
+            <button type="submit"
+                class="text-white bg-gradient-to-r from-cyan-500 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Generar
+                comando</button>
+
+
+
+            {% if comando %}
+
+
+
+            <!-- Modal toggle -->
+            <button data-modal-target="static-modal" data-modal-toggle="static-modal"
+                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button">
+                ¡El comando está listo! Encuéntralo aquí
+            </button>
+
+            <!-- Main modal -->
+            <div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div
+                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                Comando generado
+                            </h3>
+                            <button type="button"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="static-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Cerrar</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-4 md:p-5 space-y-4">
+                            <p id="comando_generado_texto"
+                                class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                                {{comando}}
+                            </p>
+
+                        </div>
+                        <!-- Modal footer -->
+                        <div
+                            class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <button onclick="copiarComando()" data-modal-hide="static-modal" type="button"
+                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                Copiar comando</button>
+                            <button data-modal-hide="static-modal" type="button"
+                                class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {% endif %}
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    //Ocultar los campos de los puertos
+    const seleccionarPuertos = document.getElementById('seleccionar_version');
+    const camposPuertos = document.getElementById('campo_version');
+
+    seleccionarPuertos.addEventListener('change', function () {
+        if (this.value === 'especifica') {
+            camposPuertos.classList.remove('hidden'); // Muestra los campos
+        } else {
+            camposPuertos.classList.add('hidden'); // Oculta los campos
+        }
+    });
+</script>
+
+
+<script>
+    function copiarComando() {
+        // Seleccionar el elemento del texto
+        const textoComando = document.getElementById('comando_generado_texto').textContent.trim();
+
+        // Usar la API Clipboard para copiar el texto al portapapeles
+        navigator.clipboard.writeText(textoComando).then(function () {
+            // Opcional: muestra una alerta o cambia el texto del botón para confirmar la copia
+            alert("Comando copiado al portapapeles!");
+        }).catch(function (error) {
+            console.error("Error al copiar el texto al portapapeles: ", error);
+        });
+    }
+</script>
+
+
+
+
+{% endblock %}
