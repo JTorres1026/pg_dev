@@ -77,7 +77,7 @@
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre del contenedor</label>
                 <input type="text" id="nombre_contenedor" name="nombre_contenedor"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    placeholder="" required />
+                    placeholder="" title="Este será el nombre único de tu contenedor" required />
             </div>
 
        
@@ -90,11 +90,11 @@
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required>
                     <option value="" disabled selected>Selecciona una opción...</option>
-                    <option value="iniciar">Iniciar</option>
-                    <option value="detener">Detener</option>
-                    <option value="reiniciar">Reiniciar</option>
-                    <option value="eliminar">Eliminar</option>
-                    <option value="interactuar">Acceder de forma interactiva</option>
+                    <option value="iniciar" title="Inicia un contenedor detenido para ejecutar la aplicación o servicio dentro de él.">Iniciar</option>
+                    <option value="detener" title="Detiene la ejecución de un contenedor en curso sin eliminarlo, permitiendo su reinicio posterior.">Detener</option>
+                    <option value="reiniciar" title="Reinicia el contenedor, deteniéndolo y luego iniciándolo nuevamente para aplicar cambios o solucionar problemas.">Reiniciar</option>
+                    <option value="eliminar" title="Elimina el contenedor junto con sus datos y configuración asociados. Asegúrate que está detenido">Eliminar</option>
+                    <option value="interactuar" title="Abre una terminal interactiva en el contenedor usando bash para ejecutar comandos en su entorno.">Acceder de forma interactiva</option>
 
                 </select>
             </div>

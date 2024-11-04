@@ -73,20 +73,21 @@
             </div>
 
             <div class="mb-5">
-                <label for="nombre_contenedor"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre para el
-                    contenedor</label>
+                <label for="nombre_contenedor" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    Nombre para el contenedor
+                </label>
                 <input type="text" id="nombre_contenedor" name="nombre_contenedor"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    placeholder="" required />
+                    placeholder="Ingresa el nombre del contenedor" title="Este será el nombre único del contenedor" required />
             </div>
+            
 
             <div class="mb-5">
                 <label for="nombre_imagen" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre
                     de la imagen de docker a utilizar</label>
                 <input type="text" id="nombre_imagen" name="nombre_imagen"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                    placeholder="nombre:etiqueta" pattern="^[a-z0-9]+([._-][a-z0-9]+)*:[a-zA-Z0-9._-]+$" required />
+                    placeholder="nombre:etiqueta" pattern="^[a-z0-9]+([._-][a-z0-9]+)*:[a-zA-Z0-9._-]+$" title="La imagen de la aplicación que deseas contenerizar, puede ser propia o de un tercero" required />
             </div>
 
 
@@ -94,7 +95,7 @@
                 <label for="segundo_plano" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     ¿Desea ejecutar el contenedor en segundo plano?
                 </label>
-                <select id="segundo_plano" name="modo_ejecucion"
+                <select id="segundo_plano" name="modo_ejecucion" title="Cuando se ejecuta el contenedor en segundo plano, puedes seguir utilizando la terminal sin necesidad de detenerlo."
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required>
                     <option value="" disabled selected>Selecciona una opción...</option>
@@ -110,7 +111,7 @@
                 <label for="seleccionar_puertos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     ¿Desea especificar los puertos a utilizar?
                 </label>
-                <select id="seleccionar_puertos" name="tiene_puerto"
+                <select id="seleccionar_puertos" name="tiene_puerto" title="Puertos para acceder a la aplicación"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required>
                     <option value="" disabled selected>Selecciona una opción...</option>
@@ -126,7 +127,7 @@
                 <div class="mb-5">
                     <label for="puerto_host" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Puerto
                         del host</label>
-                    <input type="text" id="puerto_host" name="puerto_host"
+                    <input type="text" id="puerto_host" name="puerto_host" title="Es el puerto del sistema operativo anfitrión (host) en el que deseas exponer o escuchar conexiones."
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                         placeholder="" />
                 </div>
@@ -136,7 +137,7 @@
                     <label for="puerto_contenedor"
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Puerto del
                         contenedor</label>
-                    <input type="text" id="puerto_contenedor" name="puerto_contenedor"
+                    <input type="text" id="puerto_contenedor" name="puerto_contenedor" title="Es el puerto interno del contenedor que usa la aplicación para recibir conexiones o tráfico de red. Dentro del contenedor, la aplicación escucha en ese puerto específico."
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                         placeholder="" />
                 </div>
@@ -213,6 +214,44 @@
 </div>
 
 </div>
+
+
+
+<script>
+   // Diccionario de servidores web y sus puertos predeterminados
+const servidoresWeb = {
+    "nginx": 80,
+    "apache": 80,
+    "iis": 80,
+    "tomcat": 8080,
+    "node": 3000,
+    "express": 3000,
+    "flask": 5000,
+    "django": 8000
+};
+
+// Evento para autocompletar puertos cuando se ingrese un nombre de imagen
+document.getElementById('nombre_imagen').addEventListener('input', function() {
+    // Obtener el valor ingresado
+    const nombreImagen = this.value.toLowerCase();
+
+    // Si el nombre contiene ":", separarlo para obtener solo el nombre base
+    const nombreBase = nombreImagen.includes(':') ? nombreImagen.split(':')[0] : nombreImagen;
+
+    // Verificar si el nombre base está en el diccionario
+    if (servidoresWeb[nombreBase]) {
+        // Completar los puertos automáticamente si se encuentra el servidor en el diccionario
+        document.getElementById('puerto_host').value = servidoresWeb[nombreBase];
+        document.getElementById('puerto_contenedor').value = servidoresWeb[nombreBase];
+    } else {
+        // Limpiar los puertos si el servidor no está en el diccionario
+        document.getElementById('puerto_host').value = '';
+        document.getElementById('puerto_contenedor').value = '';
+    }
+});
+
+    </script>
+
 
 
 <script>

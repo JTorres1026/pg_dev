@@ -75,7 +75,7 @@
             <div class="mb-5">
                 <label for="nombre_contenedor"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre de la imagen</label>
-                <input type="text" id="nombre_contenedor" name="nombre_imagen"
+                <input type="text" id="nombre_contenedor" name="nombre_imagen" title="Especifica el nombre de la imagen Docker que deseas utilizar"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     placeholder="" required />
             </div>
@@ -86,12 +86,12 @@
                 <label for="segundo_plano" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     ¿Que versión de la imagen necesita?
                 </label>
-                <select id="seleccionar_version" name="version_imagen"
+                <select id="seleccionar_version" name="version_imagen" title="Selecciona o indica la versión de la imagen con la que deseas trabajar, si tiene múltiples versiones disponibles."
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required>
                     <option value="" disabled selected>Selecciona una opción...</option>
-                    <option value="ultima">Última versión</option>
-                    <option value="especifica">Versión específica</option>
+                    <option value="ultima" title="Selecciona esta opción para utilizar la última versión disponible de la imagen, usualmente etiquetada como 'latest'.">Última versión</option>
+                    <option value="especifica" title="Introduce una versión específica de la imagen, si deseas gestionar una versión concreta en lugar de la última.">Versión específica</option>
 
 
                 </select>
@@ -105,7 +105,7 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etiqueta de imagen</label>
                     <input type="text" id="nombre_contenedor" name="etiqueta_imagen"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                        placeholder=""  />
+                        placeholder="" title="Usa una etiqueta (tag) para identificar y gestionar versiones o categorías de la imagen. Ejemplo: 'v1.0', 'stable'." />
                 </div>
             </div>
 
@@ -118,9 +118,9 @@
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required>
                     <option value="" disabled selected>Selecciona una opción...</option>
-                    <option value="eliminar">Eliminar</option>
-                    <option value="descargar">Descargar</option>
-                    <option value="subir">Subir</option>
+                    <option value="eliminar" title="Elimina una imagen Docker del sistema local para liberar espacio o eliminar versiones no necesarias.">Eliminar</option>
+                    <option value="descargar" title="Descarga una imagen Docker desde un registro (como Docker Hub) a tu sistema local para su uso.">Descargar</option>
+                    <option value="subir" title="Sube una imagen Docker a un registro (como Docker Hub) para compartirla o almacenarla de manera remota.">Subir</option>
 
 
                 </select>

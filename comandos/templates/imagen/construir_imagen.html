@@ -75,7 +75,7 @@
             <div class="mb-5">
                 <label for="nombre_contenedor"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre para la imagen</label>
-                <input type="text" id="nombre_contenedor" name="nombre_imagen"
+                <input type="text" id="nombre_contenedor" name="nombre_imagen" title="Especifica el nombre que deseas asignar a la imagen de Docker, que te permitirá identificarla fácilmente."
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     placeholder="" required />
             </div>
@@ -84,7 +84,7 @@
             <div class="mb-5">
                 <label for="nombre_contenedor"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Etiqueta para la imagen</label>
-                <input type="text" id="nombre_contenedor" name="etiqueta_imagen"
+                <input type="text" id="nombre_contenedor" name="etiqueta_imagen" title="Agrega una etiqueta (tag) para versionar o categorizar la imagen, por ejemplo, 'v1.0' o 'latest'."
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     placeholder="" required />
             </div>
@@ -95,12 +95,12 @@
                 <label for="segundo_plano" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                     ¿Dónde se encuentra su DockerFile?
                 </label>
-                <select id="seleccionar_ruta" name="ubicacion_dockerfile"
+                <select id="seleccionar_ruta" name="ubicacion_dockerfile" title="Indica la ubicación del archivo Dockerfile, que contiene las instrucciones para construir la imagen."
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                     required>
                     <option value="" disabled selected>Selecciona una opción...</option>
-                    <option value="actual">Directorio actual</option>
-                    <option value="fuera">Fuera del directorio actual</option>
+                    <option value="actual" title="Construye la imagen usando el Dockerfile en el directorio actual donde estás ejecutando el comando.">Directorio actual</option>
+                    <option value="fuera" title="Permite especificar una ruta fuera del directorio actual para construir la imagen con un Dockerfile ubicado en otro lugar.">Fuera del directorio actual</option>
 
 
                 </select>
@@ -114,7 +114,7 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ruta del DockerFile</label>
                     <input type="text" id="nombre_contenedor" name="ruta_dockerfile"
                         class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                        placeholder="" />
+                        placeholder="" title="Especifica la ruta exacta al Dockerfile que se usará para construir la imagen, si no está en el directorio actual." />
                 </div>
             </div>
 
